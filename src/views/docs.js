@@ -1,15 +1,14 @@
 export const generateDocsHTML = () => {
-    return `
+  return `
 <!DOCTYPE html>
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Events API - Documentatie</title>
+  <title>API Documentatie</title>
 </head>
 <body>
-  <h1>📅 Events & Organisatoren API</h1>
-  <p>REST API voor het beheren van evenementen en organisatoren.</p>
+  <h1>REST API voor het beheren van evenementen en organisatoren.</h1>
   
   <h2>Beschikbare Endpoints</h2>
   
@@ -44,9 +43,6 @@ export const generateDocsHTML = () => {
   <pre>GET /api/events?limit=5&offset=0&sortBy=startDate&order=asc
 GET /api/events?q=conferentie
 GET /api/organizers?q=jansen&sortBy=lastName&order=asc</pre>
-
-  <hr>
-  <p><em>Node.js + Express + MongoDB</em></p>
 </body>
 </html>
   `.trim();
