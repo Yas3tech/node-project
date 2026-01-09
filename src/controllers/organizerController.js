@@ -7,21 +7,31 @@ const rowToObject = (columns, row) => {
 };
 
 const execQuery = (sql, params = []) => {
-    const db = getDB();
-    const stmt = db.prepare(sql);
-    stmt.bind(params);
-    const results = [];
-    while (stmt.step()) {
-        results.push(stmt.getAsObject());
+    try {
+        const db = getDB();
+        const stmt = db.prepare(sql);
+        stmt.bind(params);
+        const results = [];
+        while (stmt.step()) {
+            results.push(stmt.getAsObject());
+        }
+        stmt.free();
+        return results;
+    } catch (err) {
+        console.error('SQL Exec Error:', err.message, '| Query:', sql);
+        throw err;
     }
-    stmt.free();
-    return results;
 };
 
 const runQuery = (sql, params = []) => {
-    const db = getDB();
-    db.run(sql, params);
-    saveDB();
+    try {
+        const db = getDB();
+        db.run(sql, params);
+        saveDB();
+    } catch (err) {
+        console.error('SQL Run Error:', err.message, '| Query:', sql);
+        throw err;
+    }
 };
 
 export const getOrganizers = (req, res, next) => {
@@ -107,8 +117,11 @@ export const updateOrganizer = (req, res, next) => {
         const { firstName, lastName, email, phone, company } = req.body;
         const id = Number(req.params.id);
 
+        console.log('Updating Organizer:', id, 'Body:', req.body);
+
         const existing = execQuery('SELECT * FROM organizers WHERE id = ?', [id]);
         if (!existing.length) {
+            console.log('Organizer not found:', id);
             return res.status(404).json({
                 error: 'Niet gevonden',
                 message: 'Organisator niet gevonden',

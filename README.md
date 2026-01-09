@@ -97,3 +97,4 @@ curl "http://localhost:3000/api/organizers?sortBy=lastName&order=asc"
 - [Express.js Documentation](https://expressjs.com/)
 - [Joi Validation](https://joi.dev/api/)
 - [sql.js Documentation](https://sql.js.org/)
+- [Module's Node.js](https://canvas.ehb.be/courses/43147/pages/module-12-node-js?module_item_id=850909)

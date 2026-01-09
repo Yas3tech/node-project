@@ -1,21 +1,31 @@
 import { getDB, saveDB } from '../config/db.js';
 
 const execQuery = (sql, params = []) => {
-    const db = getDB();
-    const stmt = db.prepare(sql);
-    stmt.bind(params);
-    const results = [];
-    while (stmt.step()) {
-        results.push(stmt.getAsObject());
+    try {
+        const db = getDB();
+        const stmt = db.prepare(sql);
+        stmt.bind(params);
+        const results = [];
+        while (stmt.step()) {
+            results.push(stmt.getAsObject());
+        }
+        stmt.free();
+        return results;
+    } catch (err) {
+        console.error('SQL Exec Error:', err.message, '| Query:', sql);
+        throw err;
     }
-    stmt.free();
-    return results;
 };
 
 const runQuery = (sql, params = []) => {
-    const db = getDB();
-    db.run(sql, params);
-    saveDB();
+    try {
+        const db = getDB();
+        db.run(sql, params);
+        saveDB();
+    } catch (err) {
+        console.error('SQL Run Error:', err.message, '| Query:', sql);
+        throw err;
+    }
 };
 
 export const getEvents = (req, res, next) => {
@@ -103,14 +113,20 @@ export const updateEvent = (req, res, next) => {
         const { title, description, location, startDate, endDate, capacity, organizerId } = req.body;
         const id = Number(req.params.id);
 
+        console.log('Updating Event:', id, 'Body:', req.body);
+
         const existing = execQuery('SELECT * FROM events WHERE id = ?', [id]);
         if (!existing.length) {
+            console.log('Event not found:', id);
             return res.status(404).json({
                 error: 'Niet gevonden',
                 message: 'Evenement niet gevonden',
                 statusCode: 404
             });
         }
+
+        const startStr = startDate instanceof Date ? startDate.toISOString() : (startDate ?? null);
+        const endStr = endDate instanceof Date ? endDate.toISOString() : (endDate ?? null);
 
         const now = new Date().toISOString();
         runQuery(`
@@ -124,7 +140,7 @@ export const updateEvent = (req, res, next) => {
         organizerId = COALESCE(?, organizerId),
         updatedAt = ?
       WHERE id = ?
-    `, [title ?? null, description ?? null, location ?? null, startDate ?? null, endDate ?? null, capacity ?? null, organizerId ?? null, now, id]);
+    `, [title ?? null, description ?? null, location ?? null, startStr, endStr, capacity ?? null, organizerId ?? null, now, id]);
 
         const result = execQuery('SELECT * FROM events WHERE id = ?', [id]);
         res.json(result[0]);

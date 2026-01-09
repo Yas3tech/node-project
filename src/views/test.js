@@ -158,7 +158,7 @@ export const generateTestHTML = () => {
 <body>
     <div class="sidebar">
         <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem;">
-            <span style="font-size: 1.5rem;">🧪</span>
+            <span style="font-size: 1.5rem;"></span>
             <h2 style="margin: 0;">Playground</h2>
         </div>
         
@@ -181,7 +181,7 @@ export const generateTestHTML = () => {
         </div>
 
         <div style="margin-top: auto;">
-            <a href="/" class="nav-item" style="text-align: center; border: 1px dashed var(--text-muted);">🏠 Home</a>
+            <a href="/" class="nav-item" style="text-align: center; border: 1px dashed var(--text-muted);">Home</a>
         </div>
     </div>
 

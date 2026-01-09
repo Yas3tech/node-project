@@ -70,10 +70,6 @@ export const generateHomeHTML = () => {
             border-color: var(--primary);
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
         }
-        .btn span.icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
         .btn span.title {
             font-weight: 600;
             font-size: 1.1rem;
@@ -96,14 +92,10 @@ export const generateHomeHTML = () => {
         
         <div class="btn-group">
             <a href="/test" class="btn">
-                <span class="icon">🧪</span>
                 <span class="title">Test API</span>
-                <span class="desc">Interactieve playground</span>
             </a>
             <a href="/docs" class="btn">
-                <span class="icon">📚</span>
                 <span class="title">Documentatie</span>
-                <span class="desc">Endpoints & Voorbeelden</span>
             </a>
         </div>
     </div>
