@@ -7,7 +7,11 @@ REST API met Node.js, Express en SQLite voor het beheren van evenementen en orga
 ```bash
 npm install
 ```
+## Seeden
 
+```bash
+npm run seed
+```
 ## Starten
 
 ```bash
