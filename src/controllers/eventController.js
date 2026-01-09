@@ -124,7 +124,7 @@ export const updateEvent = (req, res, next) => {
         organizerId = COALESCE(?, organizerId),
         updatedAt = ?
       WHERE id = ?
-    `, [title, description, location, startDate, endDate, capacity, organizerId, now, id]);
+    `, [title ?? null, description ?? null, location ?? null, startDate ?? null, endDate ?? null, capacity ?? null, organizerId ?? null, now, id]);
 
         const result = execQuery('SELECT * FROM events WHERE id = ?', [id]);
         res.json(result[0]);

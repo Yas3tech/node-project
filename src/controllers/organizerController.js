@@ -126,7 +126,7 @@ export const updateOrganizer = (req, res, next) => {
         company = COALESCE(?, company),
         updatedAt = ?
       WHERE id = ?
-    `, [firstName, lastName, email, phone, company, now, id]);
+    `, [firstName ?? null, lastName ?? null, email ?? null, phone ?? null, company ?? null, now, id]);
 
         const result = execQuery('SELECT * FROM organizers WHERE id = ?', [id]);
         res.json(result[0]);

@@ -18,6 +18,14 @@ npm start
 
 Server draait op: http://localhost:3000
 
+## Interface
+
+Dit project bevat een ingebouwde webinterface om de API makkelijk te verkennen:
+- **Home (`/`)**: Navigatie naar documentatie en playground.
+- **API Playground (`/test`)**: Een interactieve dashboard om alle API calls (CRUD) direct uit te voeren zonder terminal.
+- **Documentatie (`/docs`)**: Overzicht van alle beschikbare endpoints.
+
+
 ## Endpoints
 
 ### Organisatoren

@@ -3,6 +3,8 @@ import { requestLogger } from './middleware/logger.js';
 import { notFound } from './middleware/notFound.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { generateDocsHTML } from './views/docs.js';
+import { generateHomeHTML } from './views/home.js';
+import { generateTestHTML } from './views/test.js';
 import routes from './routes/index.js';
 
 const app = express();
@@ -12,6 +14,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(requestLogger);
 
 app.get('/', (req, res) => {
+    res.type('html').send(generateHomeHTML());
+});
+
+app.get('/test', (req, res) => {
+    res.type('html').send(generateTestHTML());
+});
+
+app.get('/docs', (req, res) => {
     res.type('html').send(generateDocsHTML());
 });
 
